@@ -1,0 +1,103 @@
+( Jr./Sr. ) Data Engineer 資料工程師++
+
+2020/04/24++
+17直播_英屬維京群島商麻吉一七股份有限公司臺灣分公司++
+https://www.104.com.tw/company/1a2x6bjfej++
+
+工作內容------------------------------++
+17 Media is the world leader in the live streaming industry and real-time content sharing mobile application for celebrities, entertainers, and influencers. We allow users to create and share their lives through live streams and photos, all while earning royalties.
+
+We are a global company, with users in more than 50 countries. We offer a dynamic work environment, and an opportunity to collaborate with passionate individuals and leading-edge technologies. As we rapidly expand across the world, we are looking for dedicated professionals to be a part of our family, to be part of our vision to be the global champion in live media and entertainment.
+
+We are current hiring for (Jr./Sr.) Data Engineer professionals that will take part in: 
+
+As a Senior Data Engineer, you work on a small team as our fast-paced business grows and evolves. We need our engineers to be versatile and passionate to tackle new problems as we continue to push the technology forward.
+
+You will be in charge of:
+
+1. Develop and operate data warehouse system. 
+2. Build ETL pipeline for data collection, processing and aggregation.
+3. Support data analysis tasks.
+4. Apply your skills in a business that truly improve the quality of the product.
+5. Work in a team of talented analysts/engineers and discover new ways to help the company succeed.
+ 
+You will be highly considered if you have the following experience: 
+1. At least 3 years experience in software development.
+2. Build ETL/Data Pipeline with Cloud Solution
+3. Data Modeling with SQL, Python, and R
+4. User Experience Analytics or Customer Sentiment Analysis
+5. Experience with mobile app's user behavior
+6. Data Storytelling and Presentation
+ 
+Good to have:
+1. Familiar with BigQuery and GCP's data solution
+2. Experience with applying machine learning technique
+3. Knowledge of probability and statistics
+4. Experience of Predicting User/Consumer Behavior
+5. Experience of Building/Operating Data Lake
+
+亞洲即時互動體龍頭17 Media秉持讓內容創作者發光發熱的使命，提供創作者影音平台進行直播互動、節目錄製與表演的舞台，更落實健全的系統化模式，從挖掘、培訓到宣傳，致力打破傳統經紀公司的模式，並攜手橫跨娛樂、網紅經紀等產業的合作夥伴，壯大海內外發展、布局全球，引領世界進入直播新媒體世代。
+
+17 Media 歡迎對以下工作內容有興趣的 資深資料工程師 加入我們的大家庭！
+
+配合 17 Media 快速的業務擴展，做為一位資深資料工程師，您將在一個敏捷的團隊中工作。隨著我們不斷地推動技術發展，我們需要工程師能解決各種問題，能對新挑戰充滿熱情。在這裡，您將負責：
+
+1. 開發及維運資料倉儲系統
+2. 建立 ETL 流程來收集、處理、重整資料
+3. 支援分析資料相關的工作
+4. 運用您的技術讓產品的品質及方向更好
+5. 和一群聰明的夥伴一起尋找能幫助公司成功的方向
+
+如果您具備以下工作技能及工作經驗，請不要猶豫立即手刀提出申請：
+1. 三年以上的軟體開發經驗
+2. 基於雲端解決方案來建立 ETL 流程
+3. 利用 SQL, Python, R 來建立資料模型
+4. 做過使用者體驗分析或客戶情緒分析
+5. 做過手機 app 使用者行為分析
+6. 根據資料說故事及表達的能力
+ 
+加分條件：
+1. 熟悉 Google 的雲端資料解決方案，例如 BigQuery
+2. 有使用過機器學習技術的經驗
+3. 具有機率及統計的相關背景知識
+4. 有做過使用者行為預測的經驗
+5. 有開發過資料湖泊 (Data Lake) 的經驗
+++
+職務類別: 軟體設計工程師 資料庫管理人員++
+工作待遇: 待遇面議++
+工作性質: 全職++
+上班地點: 台北市中正區仁愛路二段++
+管理責任: 不需負擔管理責任++
+出差外派: 無需出差外派++
+上班時段: 日班++
+休假制度: 週休二日++
+可上班日: 一個月內++
+需求人數: 1人++
+
+條件要求------------------------------++
+
+接受身份: 上班族++
+工作經歷: 不拘++
+學歷要求: 大學以上++
+科系要求: 不拘++
+語文條件: 不拘++
+擅長工具: 不拘++
+工作技能: 不拘++
+其他條件:
+以下為目前團隊所使用的技術(非招募條件)：
+GCP: BigQuery, DataFlow, Pub/Sub, DataProc, Stackdriver
+OpenSource: Digdag, Embulk, Fluentd
+Language: Python, Ruby, R++
+
+福利制度------------------------------++
+本公司正職員工享有以下福利：
+ • 提供 Macbook Air 13吋 、 Macbook Pro 15吋 + 外接顯示器或iMac 27
+ • 公司提供免費午餐; 健康零食、咖啡、飲料
+ • 優於勞基法之年度十四天特休; 並有生日假、每年有薪病假十二天(女性生理假另計)
+ • 年薪保證 14 個月(須在職滿一年)
+ • 三節禮金
+ • 每月運動健身補助最高 3,000 新台幣
+ • 年度職能進修補助最高 30,000 新台幣
+ • 年度健康檢查補助 2,000 新台幣
+ • 提供結婚補助金、生育補助金、喪葬撫卹金
+ • 員工聚餐補助

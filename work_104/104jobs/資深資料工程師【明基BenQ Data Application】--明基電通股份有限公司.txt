@@ -1,0 +1,82 @@
+資深資料工程師【明基BenQ Data Application】++
+
+2020/05/12++
+明基電通股份有限公司++
+https://www.104.com.tw/company/whlrnm8++
+
+工作內容------------------------------++
+"資料分析"在BenQ全球產品發展中扮演重要角色，此職位將會接觸到商業、一般消費者等級產品，以及整合性解決方案型產品。
+此一職位將會與其他資料分析師協同合作，將會與研發單位、設計單位、事業群、以及業務單位緊密合作，也將會同時進行數個專案，並介入產品生命週期中各個階段。
+
+We are looking for a bright and enthusiastic individual as a Data Engineer to join our team, this role will be part of the BenQ Data Application Team, co-work with other Data Analysts, Data Scientists, Data Engineers and some of the interns; together, this role will be involved different phase of BenQ product or business development process, that means you will closely work with BM, BU, Design & Development department in our HQ, also will co-operate with each regional office worldwide, provide them data insight, and data consultancy.
+
+P.S If you get highly interested in joining us(please...), please give a try to find the supervisor by any channel you know.(But please do not use extension number.)
+
+1.協助資料分析部門維護Data Pipeline
+2.系統環境維護
+3.資料交換程式開發
+4.規劃並設計良好的資料庫結構、協同分析師撈取分析資料。 
+5.建立並開發具有安全性、維護性、擴充性之系統架構與程式。
+6.協助部門進行ETL 
+7.跨部門資料對接與整合
+8.協助資料執行分析模型導入
+
+++
+職務類別: 演算法開發工程師 其他資訊專業人員++
+工作待遇: 待遇面議++
+工作性質: 全職++
+上班地點: 台北市內湖區基湖路16號++
+管理責任: 不需負擔管理責任++
+出差外派: 無需出差外派++
+上班時段: 日班++
+休假制度: 依公司規定++
+可上班日: 不限++
+需求人數: 1~2人++
+
+條件要求------------------------------++
+
+接受身份: 上班族++
+工作經歷: 不拘++
+學歷要求: 大學、碩士++
+科系要求: 不拘++
+語文條件: 不拘++
+擅長工具: Linux Python++
+工作技能: 不拘++
+其他條件:
+需求條件
+1.熟悉Linux系統管理
+2.熟悉Shell Script(至少1種，例如Python)
+3.git使用經驗
+4.熟悉 雲端服務 AWS, GCP 
+5.熟悉 MongoDB,PGSQL...等 
+6.熟悉 Rest API 開發
+7.能夠使用各種開源技術
+
+加分條件： 
+1. DevOps 實務經驗。 
+2. Node.js 實務經驗。
+3. SOQL 經驗。
+4. Big Query 經驗。
+4. 快速原型開發與測試經驗。
+5. 具有網頁 RWD、SPA 介面開發經驗。 
+6. 具有網站、資料庫效能調校經驗。 
+7. 資料獲取技能(爬蟲、第三方API對接)
+8. 專案時程掌控能力佳、能主動回報工作進度。
+++
+
+福利制度------------------------------++
+明基BenQ 落實企業以人為本及關懷社會的價值觀，推動企業社會責任、發揚品牌精神，積極打造幸福企業，提供同仁優良、友善的工作環境。正因關懷社會是明基BenQ的核心價值觀之一，你我每一位同仁更是公司打造BenQ品牌事業最重要的資產，因此特別重視員工關懷以及培訓。提供同仁無後顧之憂、能夠充分發揮己身價值的工作環境，不僅提昇品牌的競爭力，更讓同仁從中得到成就感；工作不僅是物質的報酬，更獲得心靈的滿足與幸福。
+
+明基BenQ紮實的教育訓練計畫，系統化、多樣化的課程加上內部、外部講師交互搭配運用，都是要讓同仁的學習效果更好，輔以公司內完善的教育訓練體系做後盾，完成明基BenQ 為所有同仁勾勒的學習地圖。
+
+• 薪資、獎金制度
+具市場競爭力的薪資水準，另有年度績效獎金、三節獎金。
+
+• 明基BenQ Learning 
+-完整教育訓練：提供市場\數位\內容行銷、設計思考、商業模式課程、品牌\實務工作坊及多方面的專業課程，個人學習計畫、集團公司新人訓，不打烊的各類e-Learning課程。 
+-精彩生活講座：數位行銷、正向力、旅遊及健康等講座，工作之餘也能調解身心與吸收新知。
+
+• 明基BenQ Life
+-體貼完善設施：員工餐廳、舒壓室、物理治療室、盲人按摩、哺乳室、多功能運動場、健身設備。
+-健全福利&保險制度：勞健保、團保、員工健檢、生育、傷病、住院及婚喪禮金補助。
+-旅遊活動、集團產品特惠選購、各類社團活動、電影欣賞、藝文系列活動
