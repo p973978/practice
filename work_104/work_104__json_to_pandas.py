@@ -5,6 +5,8 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import json
 import os
+from pandas.io.json import json_normalize
+
 
 # 加入使用者資訊(如使用什麼瀏覽器、作業系統...等資訊)模擬真實瀏覽網頁的情況
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'}
@@ -80,10 +82,30 @@ i=1
 print('processing item: {}: write to {}'.format(i, filename))
 
 
-for k in json_data['data']:
-    print(k)
-json_data['data']
-json_data['metadata'] #沒有東西
+file_list=os.listdir('./job104_json')
+
+
+jobinfo_List=[]
+
+for each_file in file_list:
+    cpath='./job104_json/'+each_file
+
+    with open(cpath, 'r') as f:
+        each_jobinfo_Dict= json.loads(f.read())
+        print(each_jobinfo_Dict)
+        
+    jobinfo_List.append(each_jobinfo_Dict)
+
+df= json_normalize(jobinfo_List, max_level=2) #輸出到第二層
+df.head()
+df.to_csv('./104_work_json_level2.csv', index = 0, encoding = 'utf-8-sig')
+
+
+df2=df.copy()
+df2.columns #檢視所有的欄位
+
+
+
 
 columns = ['公司','職缺','工作內容','條件要求','福利制度','聯絡人'] 
 data = []
@@ -99,6 +121,7 @@ data = [{
 data = pd.DataFrame(data)
 
 data.to_csv('./104_work.csv',index=0,encoding='utf-8-sig')
+
 #-------------second level------------#
 
 
