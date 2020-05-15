@@ -1,0 +1,151 @@
+
+body {
+	font-size: 11pt; 
+	background-color:#E8E8E8;
+	color:#000000; 
+	line-height: 16pt; 
+	margin: 0em 0em 0em 0em;
+}
+
+table {
+	font-size: 11pt; 
+	color:#000000; 
+	line-height: 16pt; 
+	margin: 0em 0em 0em 0em;
+}
+
+h1 { 
+	font-size: 2em;
+	line-height: 2em;
+}
+
+a:link {
+	color: #0000FF; 
+	text-decoration: none;
+}
+a:visited {
+	color: #0000FF; 
+	text-decoration: none;
+}
+a:hover {
+	color: #F00000; 
+	text-decoration: none;
+}
+
+.returntable {
+	border-style:dotted; 
+	border-color:#66ccff; 
+	border-width:1px;
+//	width: 120px;
+	width: 98%;
+	white-space:nowrap;
+}
+
+.returntable .changeup { color: #ff3300; }
+.returntable .changedown { color: #006633; }
+
+.marketdatatable {
+	border-style:dotted; 
+	border-color:#66ccff; 
+	border-width:1px;
+	width: 750px;
+}
+
+.marketdatatable .changeup { color: #ff3300; }
+.marketdatatable .changedown { color: #006633; }
+
+.bondindextable {
+	border-style:dotted; 
+	border-color:#66ccff; 
+	border-width:1px;
+	width: 728px;
+}
+
+.bondindextable .changeup { color: #ff3300; }
+.bondindextable .changedown { color: #006633; }
+
+/* Sidebar */
+
+	#nav:before {
+		line-height: 0.1;
+		font-size: 1px;
+		background: transparent url("menu_tr.gif") no-repeat top right;
+		margin: 0;
+		height: 9px;
+		display: block;
+		border-bottom: 1px solid #ddd;
+		content: url("key-point_tl.gif");
+	}
+	#nav {
+		background: #E0E9E9 url("menu_back.gif") right repeat-y;
+	}
+	#nav:after {
+		display: block;
+		padding-top: 0;
+		line-height: 0.1;
+		font-size: 1px;
+		content:  url("key-point_bl.gif");
+		margin: 0 0 0 0;
+		height: 8px;
+		background: transparent url("menu_br.gif") scroll no-repeat bottom right ;
+		border-top: 1px solid #fff;
+	}
+	
+	#nav, #nav ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	#nav {
+		margin-bottom: 0em;
+	}	
+	#nav li {
+		display: inline;
+		padding: 0;
+		margin: 0;
+		font-size: 12pt;
+	}
+	
+	#nav li span { /* used for un-linked menu items */
+		display: block;
+		padding: 6px 10px;
+		font-weight: bold;
+		color: #666;
+		font-size: 12pt;
+	}
+
+	#nav li span#configParent, #nav li span #configuration {
+		display: inline;
+		font-weight: normal;
+		padding: 0;
+	}
+	
+	#nav li a {
+		display: block;
+		padding: 8px 10px;
+		text-decoration: none;
+		background: #EDF2F2;
+		border-bottom: 1px solid #ddd;
+		border-top: 1px solid #fff;
+		border-right: 1px solid #ddd;
+		font-size: 12pt;
+	}
+
+	#nav li a:hover {
+		background: #E0E9E9;
+	}
+	
+	#nav li li span { /* used for un-linked menu items */
+		padding: 4px 8px 4px 20px;
+	}
+	
+	#nav li li a {
+		padding: 6px 8px 6px 20px;
+	}
+	
+	#oN {
+		background-color: #E0E9E9;
+	}
+	#oN:hover {
+		background-color: #C6DCDC;
+	}
