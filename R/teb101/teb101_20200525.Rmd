@@ -1,0 +1,219 @@
+---
+title: "R_DataMining2"
+author: "York Lin"
+date: "2020年05月25日"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Regression
+```{R}
+setwd('~/lecture/riii/')
+house = read.csv('./data/house-prices.csv',header = T)
+model = lm(formula = Price~SqFt,data = house)
+
+plot(house$SqFt,house$Price)
+abline(model,col='red')
+
+#殘差分析
+par(mfrow=c(2,2))
+plot(model)
+
+#檢定殘差是否為常態分配
+#H0:殘差為常態分配
+shapiro.test(model$residuals)
+#檢查殘差是否獨立
+#H0: 樣本間獨立
+#H1: 不獨立
+install.packages('car')
+library(car)
+durbinWatsonTest(model)
+#檢定各殘差變異數是否相等
+#H0:各殘差變異數為常數
+#H1:各殘差變異數非常數
+ncvTest(model)
+
+summary(model)
+```
+
+```{R}
+
+sample(1:10,size=5)
+
+set.seed(222)
+idx = sample(1:2,size=nrow(house),replace = T,prob=c(0.7,0.3))
+trainset = house[idx==1,]
+testset = house[idx==2,]
+lm_model = lm(Price~.,data=trainset[,-1])
+
+summary(lm_model)
+
+## backward stepwise
+step_lm_model = step(lm_model)
+step_lm_model = step(lm_model, direction='backward')
+summary(step_lm_model)
+plot(step_lm_model)
+
+## forward stepwise
+null_lm = lm(Price~1,data=trainset[,-1])
+f_step_lm_model = step(null_lm,scope=list(lower=null_lm,upper=lm_model), direction='forward')
+
+
+shapiro.test(step_lm_model$residuals)
+durbinWatsonTest(step_lm_model)
+ncvTest(step_lm_model)
+
+vif(step_lm_model)
+
+summary(step_lm_model)
+
+testset$predicted_price =predict(step_lm_model,testset)
+error = testset$Price - testset$predicted_price
+
+MAPE = mean(abs(testset$Price - testset$predicted_price) / testset$Price)
+MAPE
+```
+
+## Classification
+```{R}
+#iris example
+#install.packages('rpart')
+library('rpart')
+data("iris")
+model = rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,data=iris)
+summary(model)
+par(mfrow=c(1,1))
+plot(model,margin=0.1)
+text(model)
+
+plot(iris$Petal.Length,iris$Petal.Width,col = iris$Species)
+abline(h= 1.75, col= 'blue')
+abline(v = 2.45, col='red')
+
+predict(model,iris[,1:4],type='class')
+table(predict(model,iris[,1:4],type='class'),iris[,5])
+```
+
+## split training/testing data
+```{R}
+idx= sample(1:2,nrow(iris),replace=T,prob=c(0.7,0.3))
+trainset = iris[idx==1,]
+testset = iris[idx==2,]
+
+model2 = rpart(Species~.,data=trainset)
+plot(model2,margin=0.1)
+text(model2)
+
+pred = predict(model2,testset[,-5],type='class')
+tbl =table(pred,testset[,5])
+tbl
+```
+
+## logistic regression
+```{R}
+data(iris)
+iris <- iris[(iris$Species != 'setosa'),]
+iris$Species <- as.factor(iris$Species)
+model = glm(Species ~ ., data=iris, family = binomial)
+summary(model)
+
+predict(model,iris, type="response")
+round(predict(model,iris, type="response"),2)
+```
+
+### svm
+- https://www.youtube.com/watch?time_continue=42&v=3liCbRZPrZA&feature=emb_logo
+
+```{R}
+install.packages('e1071')
+library(e1071)
+data(iris)
+iris <- iris[(iris$Species != 'setosa'),]
+iris$Species <- as.factor(iris$Species)
+model = svm(Species~., iris)
+summary(model)
+predict(model,iris[,-5])
+```
+
+# Classification
+### Decision Tree - using churn data in C50 package
+```{R}
+#install.packages('modeldata')
+library(modeldata)
+data(mlc_churn)
+
+str(mlc_churn)
+
+names(mlc_churn) %in% c("state", "area_code", "account_length")
+!names(mlc_churn) %in% c("state", "area_code", "account_length")
+#選擇建模變數
+variable.list = !names(mlc_churn) %in% c('state','area_code','account_length')
+mlc_churn=mlc_churn[,variable.list]
+
+str(mlc_churn)
+
+set.seed(2)
+#把資料分成training data 和 testing data
+ind<-sample(1:2, size=nrow(mlc_churn), replace=T, prob=c(0.7, 0.3))
+trainset=mlc_churn[ind==1,]
+testset=mlc_churn[ind==2,]
+```
+
+### rpart
+```{R}
+#install.packages('rpart')
+library('rpart')
+#使用rpart(CART)建立決策樹模型
+?rpart
+con = rpart.control(minsplit=20,cp=0.01)
+?rpart.control
+churn.rp<-rpart(churn ~., data=trainset,control = con)
+#churn.rp<-rpart(churn ~ total_day_charge + international_plan, data=trainset)
+
+churn.rp
+s = summary(churn.rp)
+s$cptable
+
+#畫出決策樹
+par(mfrow=c(1,1))
+?plot.rpart
+plot(churn.rp, uniform=TRUE,compress=TRUE,margin=0.02)
+text(churn.rp, cex=0.8)
+
+#install.packages('rpart.plot')
+library('rpart.plot')
+rpart.plot(churn.rp)
+```
+
+## cp
+- http://mlwiki.org/index.php/Cost-Complexity_Pruning
+
+### Prune
+```{R}
+printcp(churn.rp)
+plotcp(churn.rp)
+
+#找出minimum cross-validation errors
+min_row = which.min(churn.rp$cptable[,"xerror"])
+churn.cp = churn.rp$cptable[min_row, "CP"]
+#將churn.cp設為臨界值來修剪樹
+prune.tree=prune(churn.rp, cp=churn.cp)
+plot(prune.tree, uniform=TRUE,compress=TRUE,margin=0.02)
+text(prune.tree, cex=0.8)
+
+test_tree = prune(churn.rp,cp=0.04)
+plot(test_tree, uniform=TRUE,compress=TRUE,margin=0.02)
+text(test_tree, cex=0.8)
+```
+
+## 模型驗證
+```{R}
+#install.packages('caret')
+#install.packages('e1071')
+library('caret')
+library('e1071')
+predictions <-predict(prune.tree, testset, type='class')
+table(predictions,testset$churn)
+confusionMatrix(table(predictions, testset$churn))
+```

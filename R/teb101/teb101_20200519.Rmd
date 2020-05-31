@@ -1,0 +1,259 @@
+---
+title: "R_DataMining1"
+author: "York Lin"
+date: "2020年05月19日"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## ggplot2
+### documentation
+- http://docs.ggplot2.org/current/
+
+### cheat sheet
+- https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+### why ggplot2?
+fancy by default, good for demo and report 
+consistent across all kinds of plot in syntax and behavior
+strong support community(the mostly download package on CRAN)
+
+```{R}
+#basic syntax
+#ggplot(data,aes(x,y,group,...))+geom_object(...)
+
+#install.packages('ggplot2')
+library('ggplot2')
+g <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))
+g + geom_point()
+
+g <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,col=Species))
+g + geom_point()
+
+g <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,shape=Species))
+g + geom_point()
+
+?aes()
+
+g <- ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))
+g + geom_point(aes(col=Species))
+
+#bar chart
+g <- ggplot(iris,aes(x=Species))
+g+geom_bar()
+g+geom_bar(fill='snow',color='black')
+```
+
+```{R}
+#stat
+g + geom_bar(stat = 'count')
+g + stat_count(geom='bar')
+
+# label , title
+g + geom_bar(stat = 'count') + ylab('Count') + ggtitle('iris')
+
+#theme
+g + geom_bar() + theme(text=element_text(size=16, family="Songti SC"))
+
+g + geom_bar() + theme_gray()
+
+#position
+iris$Sepal.Length.Cat = cut(iris$Sepal.Length,breaks= 3,right=F)
+levels(iris$Sepal.Length.Cat) = c("Short","Medium","Long")
+g = ggplot(iris,aes(x=Species))
+g+geom_bar(aes(fill=Sepal.Length.Cat),position='stack')
+g+geom_bar(aes(fill=Sepal.Length.Cat),position='dodge')
+g+geom_bar(aes(fill=Sepal.Length.Cat),position='fill')
+```
+
+
+```{R}
+g <- ggplot(iris,aes(x=Sepal.Width))
+g+geom_histogram(aes(fill=Species))
+#facet
+g <- ggplot(iris,aes(x=Sepal.Width))
+g+ geom_histogram()+facet_wrap(~Species)
+g+ geom_histogram()+facet_grid(~Species)
+g2 = g+ geom_histogram()+facet_grid(Species~Sepal.Length.Cat)
+
+ggsave(filename='./your_file_name.png',plot = g2)
+```
+
+## Esquisse
+## if mac OS cannot install, try this:
+####
+#brew install pkg-config
+#install.packages("gdtools", type = "source")
+#devtools::install_github("dreamRs/esquisse")
+####
+```{R}
+#install.packages('esquisse')
+#library('esquisse')
+#esquisse::esquisser()
+```
+
+### outliers
+```{R}
+## z-score
+scale(iris$Sepal.Width)
+iris[abs(scale(iris$Sepal.Width)) > 3,]
+
+library(dplyr)
+iris %>% filter(!abs(scale(iris$Sepal.Width)) > 3)
+
+## boxplot
+IQR(iris$Sepal.Width)
+q1 = quantile(iris$Sepal.Width,0.25)
+q3 = quantile(iris$Sepal.Width,0.75)
+low_limit = q1 - 1.5 * IQR(iris$Sepal.Width)
+up_limit = q3 + 1.5 * IQR(iris$Sepal.Width)
+iris$Sepal.Width < low_limit | iris$Sepal.Width > up_limit
+iris %>% filter(!iris$Sepal.Width < low_limit | iris$Sepal.Width > up_limit)
+
+
+boxplot(iris$Sepal.Width)
+boxplot.stats(iris$Sepal.Width)
+boxplot.stats(iris$Sepal.Width)$out
+condition = !iris$Sepal.Width %in% boxplot.stats(iris$Sepal.Width)$out
+
+boxplot(iris[condition,]$Sepal.Width)
+```
+
+
+### missing values
+```{R}
+na_list = sample(1:nrow(iris),15)
+iris[na_list,'Sepal.Length'] = NA
+
+is.na(iris)
+sum(is.na(iris$Sepal.Length))
+
+#移除遺失值樣本
+complete.cases(iris)
+rm.data <- iris[complete.cases(iris), ]
+str(rm.data)
+
+#以全體平均值填補
+mean(iris$Sepal.Length,na.rm=T)
+
+mean_length = as.numeric(mean(iris$Sepal.Length,na.rm=T))
+iris$Sepal.Length[is.na(iris$Sepal.Length)] = mean_length
+
+
+iris[na_list,'Sepal.Length'] = NA
+#以類別平均值填補
+cat_means = tapply(iris$Sepal.Length,iris$Species,function(e){as.numeric(mean(e,na.rm=T))})
+
+iris[is.na(iris$Sepal.Length) & iris$Species == 'setosa','Sepal.Length'] = cat_means['setosa']
+
+for(i in 1:length(names(cat_means))){
+  iris[iris$Species == names(cat_means)[i] & is.na(iris$Sepal.Length),'Sepal.Length'] = cat_means[i]
+}
+
+```
+
+#mice
+```{R}
+#install.packages('mice')
+library(mice)
+
+iris[na_list,'Sepal.Length'] = NA
+
+mice.data <- mice(data=iris,m = 3,method = "cart")
+complete(mice.data,1)
+complete(mice.data,1)[na_list,'Sepal.Length']
+
+
+diff1 = complete(mice.data,1)[na_list,'Sepal.Length'] - complete(mice.data,2)[na_list,'Sepal.Length']
+
+diff2 = complete(mice.data,1)[na_list,'Sepal.Length'] - complete(mice.data,3)[na_list,'Sepal.Length']
+
+diff3 = complete(mice.data,2)[na_list,'Sepal.Length'] - complete(mice.data,3)[na_list,'Sepal.Length']
+
+mean(c(diff1,diff2,diff3))
+var(c(diff1,diff2,diff3))
+
+complete(mice.data,1)
+```
+
+
+## 讀取交易資料
+```{R}
+#install.packages("arules")
+#install.packages("arulesViz")
+library(arules)
+library(arulesViz)
+t1 = read.transactions('~/lecture/riii/data/transactions.txt',sep=',')
+t1
+inspect(t1)
+image(t1)
+
+t2 = read.csv('~/lecture/riii/data/transactions_matrix.txt',sep=',',header = T)
+t2
+t2 = as.matrix(t2)
+t2 = as(t2,"transactions")
+inspect(t2)
+```
+
+## apriori
+```{R}
+library(dplyr)
+
+data("Groceries")
+#Groceries = read.transactions("~/lecture/riii/data/groceries.csv",sep=",")
+summary(Groceries)
+inspect(Groceries[1:5])
+itemFrequency(Groceries)
+sort(itemFrequency(Groceries),decreasing = T) %>% head()
+
+itemFrequencyPlot(Groceries,topN = 10)
+itemFrequencyPlot(Groceries,topN = 10,type = "absolute")
+itemFrequencyPlot(Groceries,topN = 10,horiz = T,
+ main = "Item Frequency",xlab = "Relative Frequency")
+
+itemFrequencyPlot(Groceries,support = 0.1,
+ main = "Item Frequency with S = 0.1",ylab = "Relative Frequency")
+
+?apriori
+rules = apriori(Groceries,parameter = list(support = 0.006,confidence = 0.3))
+summary(rules)
+
+inspect(rules[1:5])
+
+sort(rules, by = "confidence") %>% head(10) %>% inspect()
+sort(rules, by = "lift") %>% head(10) %>% inspect()
+```
+
+## apriori(續)
+```{R}
+##篩選包含優格規則
+yogurtr1 = subset(rules,items %pin% "yog")
+summary(yogurtr1)
+inspect(yogurtr1[1:15])
+
+##去除重複規則(subset)
+is.redundant(rules)
+rules[is.redundant(rules)]
+inspect(rules[is.redundant(rules)])
+rules = rules[!is.redundant(rules)]
+inspect(rules)
+
+## interestMeasure(其他衡量指標)
+quality(rules)
+?interestMeasure
+kulc = interestMeasure(rules,measure = 'kulczynski',transactions = Groceries)
+ir = interestMeasure(rules,measure = 'imbalance',transactions = Groceries)
+quality(rules)$kulc = kulc
+quality(rules)$ir = ir
+
+sort_rules= sort(rules, by = "kulc")
+sort_rules %>% head() %>% inspect()
+
+plot(sort_rules[1:10],method='graph',shading='kulc')
+```
+
+## fp-growth
+- https://kknews.cc/code/8pxzm9q.html
+- https://kknews.cc/tech/v9bqqaq.html
+

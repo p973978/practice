@@ -1,0 +1,503 @@
+---
+title: "R_basic2"
+author: "York Lin"
+date: "2020年05月13日"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+### Dataframe
+```{R}
+data("iris")
+head(iris)
+tail(iris, 10)
+str(iris)
+summary(iris)
+
+iris[1,]
+iris[,'Sepal.Length'] #向量
+
+#use $
+iris$Sepal.Length
+iris$Species=="setosa"
+iris[iris$Species=="setosa",]
+
+#使用which 做資料篩選
+#which開頭函數回傳的是符合條件樣本的index
+which(iris$Species=="setosa")
+
+which.min(iris$Sepal.Length) # index
+which.max(iris$Sepal.Length) # index
+
+#用order做資料排序
+iris[order(iris$Sepal.Length, decreasing = TRUE),]
+sort(iris$Sepal.Length, decreasing = TRUE)
+
+#merge進行資料合併
+df1 = data.frame(CustomerId = c(1:6), Product = c(rep("Toaster", 3), rep("Radio", 3)))
+df2 = data.frame(CustomerId = c(2, 4, 6), State = c(rep("Alabama", 2), rep("Ohio", 1)))
+
+#Inner join:
+merge(x = df1, y= df2, by="CustomerId")
+
+#Outer join: 
+merge(x = df1, y = df2, by = "CustomerId", all = TRUE) #無資料的顯示NA
+
+#Left outer: 
+merge(x = df1, y = df2, by = "CustomerId", all.x = TRUE)
+
+#Right outer:
+merge(x = df1, y = df2, by = "CustomerId", all.y = TRUE)
+
+#Cross join: 
+merge(x = df1, y = df2, by = NULL)
+```
+
+### File read and write
+```{R}
+getwd()
+setwd('C:/Users/User/Desktop/R/riii')
+# setwd("__your_working_directory_path__")
+tw2330 = read.csv("data/2330.csv", header=TRUE)
+#tw2330 = read.csv('https://github.com/YuHsuanLin/riii/raw/master/data/2330.csv')
+test.data = read.table("data/match.txt" ,header = FALSE, sep="|")
+str(tw2330)
+```
+
+### as. is.
+```{R}
+# as. 形態或物件轉換
+as.numeric(c("1","2","3"))
+# is. 判斷式
+x = c(1,2,3,NA)
+is.na(x)
+!is.na(x)
+x[!is.na(x)]
+```
+
+#example
+```{R}
+tw2330 = read.csv('./data/2330.csv',header = T)
+str(tw2330)
+tw2330$Date
+as.Date(tw2330$Date)
+class(as.Date(tw2330$Date))
+tw2330$Date_new = as.Date(tw2330$Date)
+str(tw2330)
+tw2330$Date_new >= "2018-01-01"
+```
+
+#p70
+```{R}
+tw2330 = read.csv('./data/2330.csv',header=T)
+str(tw2330)
+tw2330$Date = as.Date(tw2330$Date)
+str(tw2330)
+tw2330[tw2330$Date >= as.Date('2017-01-01') & tw2330$Date < as.Date('2018-01-01'), ]
+tw2330_2017 = tw2330[tw2330$Date >= as.Date('2017-01-01') & tw2330$Date < as.Date('2018-01-01'), ]
+
+
+max(tw2330_2017$Close)
+
+which.max(tw2330_2017$Close)#index
+tw2330_2017[26,]
+
+tw2330_2017$Close
+order(tw2330_2017$Close)
+order(tw2330_2017$Close,decreasing = T)
+tw2330_2017[order(tw2330_2017$Close,decreasing = T),]
+
+```
+
+### List
+```{R}
+item= list(thing='hat',size=8.25)
+item$thing
+item$size
+
+flower= list(title="iris dataset", data= iris)
+class(flower)
+class(flower$data)
+flower$data[1,"Sepal.Width"]
+
+li = list(c(1,2,3,4),c(5,6,7,8))
+li[1] #還是list
+li[[1]] #value原始的物件
+```
+
+<<<<<<< Updated upstream
+
+###readr package
+- http://hadley.nz/
+- https://github.com/tidyverse/readr
+
+```{R}
+#install.packages("tidyverse")
+#library('tidyverse')
+#install.packages("readr")
+library("readr")
+
+
+read.csv('./data/2330.csv',header = T)
+stock = read_csv('data/2330.csv',col_names=T)
+
+stock = read_csv('data/2330.csv',col_names=T,col_types = cols(
+  Date = col_date(format = ""),
+  Open = col_double(),
+  High = col_double(),
+  Low = col_double(),
+  Close = col_double(),
+  Volume = col_integer()
+))
+str(stock) #tibble
+```
+
+### read excel file
+```{R}
+#install.packages("readxl")
+library(readxl)
+
+FinancialReport <- read_excel("./data/FinancialReport.xlsx")
+#View(FinancialReport)
+summary(FinancialReport)
+```
+
+### read json
+```{R}
+install.packages("dplyr")
+library('dplyr')
+
+setwd('C:/Users/User/Desktop/R/riii')
+install.packages('jsonlite')
+library(jsonlite)
+json_data<- fromJSON('./data/rent.json')
+json_data <- as_tibble(json_data)
+head(json_data)
+
+#as_tibble(fromJSON('https://api.github.com/users/hadley/orgs'))
+```
+
+### read xml
+```{R}
+install.packages("XML")
+library(XML)
+url <- 'http://opendata.epa.gov.tw/ws/Data/ATM00698/?$format=xml'
+weather = xmlToDataFrame(url)
+(weather)
+#str(weather)
+#weather[ weather$SiteName == '臺北',  c('DataCreationDate','Temperature')   ]
+```
+<<<<<<< HEAD
+=======
+
+```{r}
+install.packages('readr')
+library(readr)
+getwd()
+read_csv('data/2330.csv',col_names = T)
+
+install.packages('jsonlite')
+library(jsonlite)
+json_data = fromJSON('data/rent.json')
+```
+>>>>>>> Stashed changes
+
+=======
+
+### Flow Control
+```{R}
+x=5;
+if(x>3){
+  print("x > 3")
+}else{
+  print("x <= 3")
+}
+
+if(x>3) print("x > 3") else print("x <= 3")
+
+test = ifelse(x>3,"x > 3","x <= 3")
+test
+
+data(iris)
+iris$new_species = factor(ifelse(iris$Species == "setosa","IsSetosa","NotSetosa"))
+str(iris)
+
+x=5;
+if(x>3){
+  print ("x > 3");
+} else if (x ==3){
+  print ("x == 3");
+}else{
+  print("x <= 3");
+}
+
+for(i in 1:10){
+  print(i)
+}
+
+seq(from=1,to=10)
+
+sum=0
+for(i in 1:100){
+  sum= sum+ i;
+}
+sum
+
+sum(1:100)
+
+mat = matrix(1:9, byrow=TRUE, nrow=3)
+for(i in 1:nrow(mat)){
+  for(j in 1:ncol(mat)){
+    print(mat[i,j])
+  }
+}
+
+sum = 0;
+cnt = 0;
+while(cnt <= 100){
+  sum = sum + cnt;
+  cnt = cnt + 1;
+}
+sum
+```
+
+
+### Function
+```{R}
+addThree = function(a){
+    a+3
+}
+addThree(3)
+
+#with default arguments
+addThree_2 = function(a = 3) {
+    return(a+3)
+}
+addThree_2()
+
+#每行程式結尾可加;可不加
+addThree_3 = function(a = 3) {
+    a+3;
+}
+addThree_3()
+
+#lazy function
+f2 = function(a, b = 2, c = NULL) {
+   return(b + 1)
+}
+f2()
+
+#local variable
+b = 3
+f3 = function() {
+    b = 2
+    return(b)
+}
+f3()
+
+f4 = function(a, b=3) {
+   return(b + a )
+}
+f4(3)
+
+f5 = function(a, b) {
+   return(a*2)
+}
+f5(3)
+
+```
+
+### lapply sapply
+```{R}
+x = list(c(1,2,3,4), c(5,6,7,8))
+## 回傳list的結果
+lapply(x, sum)
+class(lapply(x, sum))
+## 回傳簡化的結果(vector,matrix)
+sapply(x, sum)
+## sapply 等同 lapply unlist 後的結果
+#sapply return a vector
+unlist(lapply(x, sum))
+
+class(sapply(x, sum))
+
+lapply(x,addThree)
+## 匿名函式
+lapply(x,function(e){e+3})
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+li = list(m1, m2)
+lapply(li, function(e){e[1,]})
+lapply(li, mean)
+```
+<<<<<<< HEAD
+>>>>>>> 48274113e8b637e829d6a2d5427e1664a19bd40d
+=======
+
+### apply tapply
+```{R}
+m = matrix(1:4, byrow=TRUE, nrow=2)
+apply(m, 1, sum) # rowsums
+apply(m, 2, sum) # colsums
+
+rowmeans = apply(m, 1, mean)
+colmeans = apply(m, 2, mean)
+
+x = c(80,70,59,88,72,57)
+t = c(1,1,2,1,1,2)
+tapply(x,t, mean)
+#tapply(X, INDEX, FUN)
+
+data(iris)
+
+tapply(iris$Sepal.Length, iris$Species, mean)
+tapply(iris$Sepal.Length,iris$Species,function(e){list(avg=mean(e),md=median(e),s_d = sd(e))})
+
+s = lapply(names(iris[1:4]),function(e){tapply(iris[,e],iris$Species,mean)})
+s
+
+names(s)
+names(s) = names(iris[1:4])
+```
+<<<<<<< HEAD
+>>>>>>> eaf9b5eaa76cdfbdd2173acad1212cfe52ae079e
+=======
+
+### 連續變數常用統計量
+```{R}
+#集中趨勢
+mean(iris$Sepal.Length)
+median(iris$Sepal.Length)
+
+#離散趨勢
+range(iris$Sepal.Length)
+IQR(iris$Sepal.Length)
+var(iris$Sepal.Length)
+sd(iris$Sepal.Length)
+
+#相關性
+cor(iris[,-5])
+```
+
+### dataexplorer
+## create_report() error 99 problem
+## downgrade pandoc 2.7 -> 2.6
+- https://github.com/boxuancui/DataExplorer/issues/116
+
+```{R}
+#install.packages('DataExplorer')
+library('DataExplorer')
+help(package = 'DataExplorer')
+
+introduce(iris)
+dummify(iris)
+plot_missing(iris)
+plot_histogram(iris)
+plot_boxplot(iris,by='Species')
+plot_correlation(iris[,-5])
+plot_prcomp(iris)
+#create_report(iris)
+```
+<<<<<<< HEAD
+>>>>>>> b56e0abc5343e729d77318c8903fadd3dad7a0ba
+=======
+
+### dplyr
+```{R}
+#install.packages('dplyr')
+library('dplyr')
+
+#filter
+iris[iris$Species== 'setosa',]
+filter(iris,Species=='setosa')
+filter(iris,Species=='setosa' & Sepal.Length > 5.5)
+filter(iris,Species=='setosa',Sepal.Length > 5.5)
+filter(iris,Species=='setosa' | Species=='versicolor')
+filter(iris,Species %in% c('setosa','versicolor'))
+
+#select
+iris[,c('Sepal.Length','Sepal.Width')]
+select(iris,Sepal.Length,Sepal.Width)
+select(iris,Sepal.Length:Sepal.Width)
+select(iris,starts_with('Sepal'))
+select(iris,ends_with('Length'))
+
+#chaining
+iris %>%
+select(Sepal.Length,Species) %>%
+filter(Species=='setosa') %>%
+head()
+
+<<<<<<< HEAD
+head(filter(select(iris,Sepal.Length,Species),Species=='setosa'))
+```
+>>>>>>> f7e2733dbee98840be2660d00dc8757d7cfad210
+=======
+
+```{r}
+#arrange
+iris %>%
+  select(Sepal.Length,Species) %>%
+  filter(Species=='setosa') %>%
+  arrange(desc(Sepal.Length)) %>%
+  head(10)
+
+### group_by + summarise
+iris %>%
+  group_by(Species) %>%
+  summarise(sepal_length_mean = mean(Sepal.Length)) %>%
+  arrange(sepal_length_mean)
+
+### group_by + summarise_at
+iris %>%
+  group_by(Species) %>%
+  summarise_at(.vars=vars(Sepal.Length,Sepal.Width,Petal.Length,Petal.Width),.funs=funs(mean))
+
+## dplyr 0.8up funs() -> list()
+iris %>%
+  group_by(Species) %>%
+  summarise_at(.vars=vars(Sepal.Length,Sepal.Width,Petal.Length,Petal.Width),.funs=list(mean,median,min,max))
+```
+<<<<<<< HEAD
+>>>>>>> fc88f18564815129e1af604ae91bbe5547620752
+=======
+
+### alter mysql 8.0 password encryption
+- https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded
+
+在MySQL workbench執行以下指令
+```
+ALTER USER 'yourusername'@'localhost' IDENTIFIED WITH mysql_native_password BY 'youpassword';
+
+CREATE DATABASE test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+### connect MySQL example
+```{R}
+#install.packages('dplyr')
+#install.packages('RMariaDB')
+#install.packages('dbplyr')
+library('dplyr')
+library('dbplyr')
+library('RMariaDB')
+
+data("iris")
+
+conn = dbConnect(MariaDB(),dbname='test',host='127.0.0.1',port=3306,user='root',password='pythonetl')
+
+dbListTables(conn)
+
+db_drop_table(conn,'iris')
+copy_to(conn,iris,temporary = F)
+
+tbl(conn,"iris") %>%
+  select(starts_with('Sepal'),'Species') %>%
+  group_by(Species) %>%
+  summarise_at(.funs=funs(mean(.,na.rm=T),sd(.,na.rm=T)),.vars=vars(starts_with('Sepal'))) %>%
+  collect()
+
+dbGetQuery(conn,'select * from iris') %>% filter(Species == 'setosa')
+dbGetQuery(conn,'select `Sepal.Length` from iris')
+```
+>>>>>>> b6fb2302ae2edb98e545e789afa4919d03e8b7d4
